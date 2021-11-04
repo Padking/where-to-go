@@ -128,7 +128,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    ('where_to_go', env.str('STATICFILES_DIR_FOR_WHERE_TO_GO_APP')),
+]
+
+STATIC_ROOT = env.str('STATIC_ROOT', 'static')
+
+STATIC_URL = env.str('STATIC_URL', '/static/')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
