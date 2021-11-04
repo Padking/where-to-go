@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'places.apps.PlacesConfig',
+
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 MIDDLEWARE = [
@@ -137,6 +139,12 @@ STATICFILES_DIRS = [
 STATIC_ROOT = env.str('STATIC_ROOT', 'static')
 
 STATIC_URL = env.str('STATIC_URL', '/static/')
+
+# Media files
+
+MEDIA_ROOT = env.str('MEDIA_ROOT', 'media')
+
+MEDIA_URL = env.str('MEDIA_URL', '/media/')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
