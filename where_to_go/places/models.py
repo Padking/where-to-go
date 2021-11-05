@@ -2,10 +2,14 @@ from django.db import models
 
 
 class Place(models.Model):
-    title = models.CharField('название',
-                             max_length=200)
+    title_long = models.CharField('подробное название',
+                                  max_length=200)
+    title_short = models.CharField('краткое название',
+                                   max_length=200)
+    place_identifier = models.CharField('идентификатор',
+                                        max_length=200)
     longitude = models.FloatField('долгота')
-    langitude = models.FloatField('широта')
+    latitude = models.FloatField('широта')
 
     description_short = models.TextField('краткое описание',
                                          blank=True)
@@ -13,7 +17,7 @@ class Place(models.Model):
                                         blank=True)
 
     def __str__(self):
-        return self.title
+        return self.title_long
 
 
 class Image(models.Model):

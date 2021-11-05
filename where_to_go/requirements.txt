@@ -1,5 +1,6 @@
 Django==3.2.9
 django-cleanup==5.2.0
 environs==9.3.4
+geojson==2.5.0
 Pillow==8.0.*
 psycopg2-binary==2.9.1

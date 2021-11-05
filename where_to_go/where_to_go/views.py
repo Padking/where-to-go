@@ -1,39 +1,36 @@
 from django.shortcuts import render
+from django.urls import reverse
+
+from geojson import (
+    Feature,
+    FeatureCollection,
+    Point,
+)
+
+from places.models import (
+    Place,
+)
 
 
 def show_map(request):
-    places = {
-      "type": "FeatureCollection",
-      "features": [
-        {
-          "type": "Feature",
-          "geometry": {
-            "type": "Point",
-            "coordinates": [37.62, 55.793676]
-          },
-          "properties": {
-            "title": "«Легенды Москвы",
-            "placeId": "moscow_legends",
-            "detailsUrl": "https://raw.githubusercontent.com/devmanorg/where-to-go-frontend/master/places/moscow_legends.json"
-          }
-        },
-        {
-          "type": "Feature",
-          "geometry": {
-            "type": "Point",
-            "coordinates": [37.64, 55.753676]
-          },
-          "properties": {
-            "title": "Крыши24.рф",
-            "placeId": "roofs24",
-            "detailsUrl": "https://raw.githubusercontent.com/devmanorg/where-to-go-frontend/master/places/roofs24.json"
-          }
+    places = Place.objects.all()
+    features = []
+    for place in places:
+        point = (place.longitude, place.latitude)
+        properties = {
+            'title': place.title_short,
+            'placeId': place.place_identifier,
+            'detailsUrl': reverse('places:place',
+                                  kwargs={'place_id': place.id}),
         }
-      ]
-    }
+        feature = Feature(geometry=Point(point),
+                          properties=properties)
+        features.append(feature)
+
+    feature_collection = FeatureCollection(features)
 
     context = {
-        'places': places,
+        'places': feature_collection,
     }
 
     return render(request, 'index.html',
