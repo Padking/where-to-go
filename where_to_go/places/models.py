@@ -26,6 +26,8 @@ class Image(models.Model):
     place = models.ForeignKey(Place, on_delete=models.CASCADE,
                               blank=True,
                               related_name='images_per_place')
+    position = models.PositiveIntegerField('позиция',
+                                           default=0)
 
     def __str__(self):
-        return f'{self.id} {self.name}'
+        return f'{self.id} {self.place.title_long}'
