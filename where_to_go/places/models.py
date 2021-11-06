@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils.html import format_html
+from django.utils.safestring import mark_safe
 
 
 class Place(models.Model):
@@ -28,6 +30,16 @@ class Image(models.Model):
                               related_name='images_per_place')
     position = models.PositiveIntegerField('позиция',
                                            default=0)
+
+    @property
+    def get_preview(self):
+        html_code = (
+            '<img src="{url}" style="max-height:{max_height}px">'
+        )
+        if self.name:
+            return format_html(mark_safe(html_code),
+                               url=self.name.url,
+                               max_height=200)
 
     def __str__(self):
         return f'{self.id} {self.place.title_long}'
