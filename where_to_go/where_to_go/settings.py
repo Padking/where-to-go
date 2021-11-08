@@ -43,8 +43,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # Custom
     'places.apps.PlacesConfig',
 
+    # Third-party
+    'adminsortable2',
     'django_cleanup.apps.CleanupConfig',
 ]
 

@@ -41,5 +41,8 @@ class Image(models.Model):
                                url=self.name.url,
                                max_height=200)
 
+    class Meta:
+        ordering = ('position', )
+
     def __str__(self):
         return f'{self.id} {self.place.title_long}'
