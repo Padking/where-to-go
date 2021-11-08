@@ -2,6 +2,8 @@ from django.db import models
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 
+from tinymce.models import HTMLField
+
 
 class Place(models.Model):
     title_long = models.CharField('подробное название',
@@ -15,8 +17,8 @@ class Place(models.Model):
 
     description_short = models.TextField('краткое описание',
                                          blank=True)
-    description_long = models.TextField('подробное описание',
-                                        blank=True)
+    description_long = HTMLField('подробное описание',
+                                 blank=True)
 
     def __str__(self):
         return self.title_long

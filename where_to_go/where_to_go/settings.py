@@ -48,6 +48,7 @@ INSTALLED_APPS = [
 
     # Third-party
     'adminsortable2',
+    'tinymce',
     'django_cleanup.apps.CleanupConfig',
 ]
 
