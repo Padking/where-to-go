@@ -23,8 +23,4 @@ class PlaceAdmin(admin.ModelAdmin):
     inlines = [
         ImageInline,
     ]
-
-
-@admin.register(Image)
-class ImageAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ('title_long', )
