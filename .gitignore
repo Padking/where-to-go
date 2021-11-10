@@ -44,6 +44,7 @@ pip-delete-this-directory.txt
 # Django:
 *.log
 local_settings.py
+static/
 *.sqlite3
 *.sqlite3-journal
 
@@ -94,7 +95,8 @@ celerybeat.pid
 
 
 # Environments
-.env*
+.env.dev*
+.env.prod*
 .venv
 env/
 venv/
@@ -124,10 +126,5 @@ __pypackages__/
 
 # Personal
 for_project/
-where-to-go-frontend/
 notes.txt
 .flake8
-
-# Docker
-Docker/
-docker-compose*
