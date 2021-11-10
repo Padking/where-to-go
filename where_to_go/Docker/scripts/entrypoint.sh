@@ -3,11 +3,6 @@
 set -o errexit
 set -o nounset
 
-# the official postgres image uses 'postgres' as default user if not set explicitly.
-# if [ -z "$POSTGRES_USER" ]; then
-#     export POSTGRES_USER=postgres
-# fi
-
 postgres_ready() {
 python << END
 import os

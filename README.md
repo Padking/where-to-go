@@ -56,18 +56,21 @@
 ### Проверка работоспособности сайта в prod-среде на localhost
 
 **Цель:** в браузере открывается подобный [сайт](https://devmanorg.github.io/where-to-go-frontend/).
+
 **Шаги** (см. [раздел "Установка"](https://github.com/Padking/where-to-go#установка)):
 - 1, [шаги](https://github.com/Padking/where-to-go#Организация%20prod-среды), 3-11 включительно.
 
 ### Проверка работоспособности панели администратора
 
 **Цель:** убедиться в появлении на сайте тех локаций, которые были добавлены.
+
 **Шаги** (см. [раздел "Установка"](https://github.com/Padking/where-to-go#установка)) при условии запущенного сайта в dev- или prod-среде:
-- 11.
+- 11;
 
 ### Потенциальная доработка возможностей сайта в dev-среде на localhost
 
 **Цель:** определяется программистом-исследователем.
+
 **Шаги** (см. [раздел "Установка"](https://github.com/Padking/where-to-go#установка)):
 - 1, 2, [шаги](https://github.com/Padking/where-to-go#Организация%20dev-среды), 3-11 включительно.
 
@@ -102,22 +105,26 @@
 
 ### Главная страница
 
-Реализована [html-шаблоном]() и [контекстом]().
+Реализована [html-шаблоном](https://github.com/Padking/where-to-go/blob/master/where_to_go/templates/index.html) и [контекстом](https://github.com/Padking/where-to-go/blob/master/where_to_go/where_to_go/views.py#L32).
+
 [Тут](http://127.0.0.1:8000/).
 
 ### Панель администратора
 
 Представляет собой кастомизированное приложение на базе [Django admin site](https://docs.djangoproject.com/en/3.1/ref/contrib/admin/).
+
 Доступна при запущенном сайте по [адресу](http://127.0.0.1:8000/admin/).
 
 ### Endpoint сырых данных о локации
 
 Формируется программным объектом [JsonResponse](https://docs.djangoproject.com/en/3.1/ref/request-response/#jsonresponse-objects).
+
 Доступен при запущенном и наполненном данными сайте по [адресу](http://127.0.0.1:8000/places/12/).
 
 ### Manage-команда для загрузки данных в БД
 
 Относится к кастомному Dj-приложению `places`, реализована в модуле `load_place.py`.
+
 [Примеры работы](https://github.com/Padking/where-to-go#Примеры%20запуска)
 
 ### Используемые технологии
@@ -236,7 +243,7 @@ docker-compose exec web python manage.py migrate --noinput
 ```
 7. Собрать статику для проекта:
 ```sh
-docker-compose exec web python manage.py collectstatic --clear  # убедиться, что не б. препятствий в ходе выполнения (проверить: docker-compose logs -f)
+docker-compose exec web python manage.py collectstatic --clear
 ```
 8. Применить фикстуру
 ```sh
