@@ -1,0 +1,3 @@
+CREATE USER proba WITH ENCRYPTED PASSWORD 'proba';
+CREATE DATABASE where_to_go ENCODING 'UTF8' template=template0 OWNER proba;
+GRANT ALL PRIVILEGES ON DATABASE where_to_go TO proba;

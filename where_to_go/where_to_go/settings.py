@@ -19,18 +19,22 @@ from environs import Env
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 env = Env()
-env.read_env('.env.dev')
+workenv_env_var_value = os.getenv('DJANGO_ENV')
+if workenv_env_var_value == 'development':
+    env.read_env('.env.dev')
+elif workenv_env_var_value == 'production':
+    env.read_env('.env.prod')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env.str('SECRET_KEY', 'REPLACE_ME')
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool('DEBUG', True)
+DEBUG = env.bool('DEBUG')
 
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', [])
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
 
 # Application definition
@@ -68,7 +72,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'templates'),
+            BASE_DIR / 'templates',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -90,12 +94,12 @@ WSGI_APPLICATION = 'where_to_go.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': env('PSQL_DB_ENGINE'),
         'NAME': env('PSQL_DB_NAME'),
         'USER': env('PSQL_DB_USER'),
-        'PASSWORD': env.int('PSQL_DB_PASSWORD'),
-        'HOST': env('PSQL_DB_HOST', 'localhost'),
-        'PORT': env.int('PSQL_DB_PORT', 5432)
+        'PASSWORD': env('PSQL_DB_PASSWORD'),
+        'HOST': env('PSQL_DB_HOST'),
+        'PORT': env.int('PSQL_DB_PORT')
     }
 }
 
@@ -137,18 +141,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATICFILES_DIRS = [
-    ('where_to_go', env.str('STATICFILES_DIR_FOR_WHERE_TO_GO_APP')),
+    ('where_to_go', BASE_DIR / env('FRONTEND_PART_APP_DIR')),
 ]
 
-STATIC_ROOT = env.str('STATIC_ROOT', 'static')
+STATIC_ROOT = BASE_DIR / env('STATIC_ROOT')
 
-STATIC_URL = env.str('STATIC_URL', '/static/')
+STATIC_URL = env('STATIC_URL')
 
 # Media files
+MEDIA_ROOT = BASE_DIR / env('MEDIA_ROOT')
 
-MEDIA_ROOT = env.str('MEDIA_ROOT', 'media')
-
-MEDIA_URL = env.str('MEDIA_URL', '/media/')
+MEDIA_URL = env('MEDIA_URL')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
