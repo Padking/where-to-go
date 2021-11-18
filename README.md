@@ -26,7 +26,7 @@
     * поиска локации по названию,
     * создать/редактировать фото локации,
     * просмотра превью фотографий локаций,
-    * удобно менять (drag & drop) порядок отображения фото на главной [сайта](http://127.0.0.1:8000/),
+    * удобно менять (drag & drop) порядок отображения фото на главной [сайта](http://59840.web.hosting-russia.ru/),
     * подсчёта фото по локациям.
 - обеспечивает загрузку информации о локациях в БД, используя [manage-команду](https://github.com/Padking/where-to-go#Manage-команда-для-загрузки-данных-в-БД),
 - [источник данных](https://github.com/devmanorg/where-to-go-places),
@@ -48,31 +48,6 @@
   **Создать/редактировать запись локации в БД:**
 
   ![admin_page_1_edit](https://github.com/Padking/where-to-go/blob/master/screenshots/admin_page_1_edit.gif)
-
-
-
-## Сценарии использования
-
-### Проверка работоспособности сайта в prod-среде на localhost
-
-**Цель:** в браузере открывается подобный [сайт](https://devmanorg.github.io/where-to-go-frontend/).
-
-**Шаги** (см. [раздел "Установка"](https://github.com/Padking/where-to-go#установка)):
-- 1, [шаги](https://github.com/Padking/where-to-go#Организация-prod-среды), 3-11 включительно.
-
-### Проверка работоспособности панели администратора
-
-**Цель:** убедиться в появлении на сайте тех локаций, которые были добавлены.
-
-**Шаги** (см. [раздел "Установка"](https://github.com/Padking/where-to-go#установка)) при условии запущенного сайта в dev- или prod-среде:
-- 11;
-
-### Потенциальная доработка возможностей сайта в dev-среде на localhost
-
-**Цель:** определяется программистом-исследователем.
-
-**Шаги** (см. [раздел "Установка"](https://github.com/Padking/where-to-go#установка)):
-- 1, 2, [шаги](https://github.com/Padking/where-to-go#Организация-dev-среды), 3-11 включительно.
 
 
 ## Предметная область
@@ -110,19 +85,19 @@
 
 Реализована [html-шаблоном](https://github.com/Padking/where-to-go/blob/master/where_to_go/templates/index.html) и [контекстом](https://github.com/Padking/where-to-go/blob/master/where_to_go/where_to_go/views.py#L32).
 
-[Тут](http://127.0.0.1:8000/).
+[Тут](http://59840.web.hosting-russia.ru/).
 
 ### Панель администратора
 
 Представляет собой кастомизированное приложение на базе [Django admin site](https://docs.djangoproject.com/en/3.1/ref/contrib/admin/).
 
-Доступна при запущенном сайте по [адресу](http://127.0.0.1:8000/admin/).
+Доступна при запущенном сайте по [адресу](http://59840.web.hosting-russia.ru/admin/).
 
 ### Endpoint сырых данных о локации
 
 Формируется программным объектом [JsonResponse](https://docs.djangoproject.com/en/3.1/ref/request-response/#jsonresponse-objects).
 
-Доступен при запущенном и наполненном данными сайте по [адресу](http://127.0.0.1:8000/places/12/).
+Доступен при запущенном и наполненном данными сайте по [адресу](http://59840.web.hosting-russia.ru/places/12/).
 
 ### Manage-команда для загрузки данных в БД
 
@@ -163,7 +138,7 @@
 Проект настраивается через ПеО, достаточно задать их в файлах `.env.override` и `.env.override.db`.
 Передача значений ПеО происходит с использованием [environs](https://pypi.org/project/environs/).
 
-Среды (dev-, prod-) определяются настройками в файлах `docker-compose.yml` и `docker-compose.dev.yml`.
+Среды (dev-, prod-), организованные с использованием СВ-ии, используют файлы `docker-compose.dev.yml` и `docker-compose.yml`.
 
 По умолчанию проект подготовлен к запуску в prod-среде.
 
@@ -181,7 +156,6 @@
 |`STATIC_URL`| Имя path-части URL для отдачи статики |`/static/`|
 |`MEDIA_ROOT`| Имя каталога с медиа-файлами проекта |`media`|
 |`MEDIA_URL`| Имя path-части URL для отдачи медиа-файлов |`/media/`|
-|`DJANGO_ENV`| Среда, в которой запускается проект |`production`|
 |`PSQL_DB_ENGINE`| Имя движка СУБД |`django.db.backends.postgresql`|
 |`PSQL_DB_HOST`| Имя сервиса развёрнутого в контейнере для БД | `db` |
 |`PSQL_DB_PORT`| Порт СУБД | `5432` |
@@ -196,12 +170,12 @@
 |       Ключ        |     Назначение     |   По умолчанию   |
 |-------------------|------------------|------------------|
 |`POSTGRES_USER`| Суперпользователь БД | `postgres` |
-|`POSTGRES_PASSWORD`| Пароль суперпользователя БД | - |
+|`POSTGRES_PASSWORD`| Пароль суперпользователя БД | `postgres` |
 
 
 ### Организация dev-среды
 
-- создать на основе `env.override` и `env.override.db` файлы `env.dev` и `env.dev.db`,
+- создать на основе `env.override` и `env.override.db` файлы `env` и `env.db`,
 - заполнить значениями ключи, у которых нет значений по умолчанию,
 - переопределить значения ключей, указанных в таблице ниже,
 - переименовать `docker-compose.dev.yml` в `docker-compose.yml`.
@@ -209,12 +183,11 @@
 |       Ключ        |     Назначение     |   Должно стать   |
 |-------------------|------------------|------------------|
 |`DEBUG`| Режим отладки | `True` |
-|`DJANGO_ENV`| Среда, в которой запускается проект |`development`|
 
 
 ### Организация prod-среды
 
-- создать на основе `env.override` и `env.override.db` файлы `env.prod` и `env.prod.db`,
+- создать на основе `env.override` и `env.override.db` файлы `env` и `env.db`,
 - заполнить значениями ключи, у которых нет значений по умолчанию.
 
 
@@ -254,7 +227,7 @@ docker-compose exec web python manage.py collectstatic --clear
 docker-compose exec web python manage.py loaddata ./places/fixtures/db_data.json
 ```
 
-9. Запустить [сайт](http://127.0.0.1:8000/),
+9. Запустить [сайт](http://59840.web.hosting-russia.ru/),
 
 10. Cоздать суперпользователя в интерактивном режиме**:
 ```sh
@@ -262,14 +235,14 @@ docker-compose exec web python manage.py createsuperuser
 ```
 11. Наполнить БД информацией о локациях одним из способов:
     * через [Django admin site](https://docs.djangoproject.com/en/3.1/ref/contrib/admin/):
-      - перейти на [сайт](http://127.0.0.1:8000/admin/),
+      - перейти на [сайт](http://59840.web.hosting-russia.ru/admin/),
       - войти под учётной записью, созданной в п.10 или сформированной администратором ИС-ы
       - совершить целевое действие,
-      - убедиться в отображении локаций на главной странице [сайта](http://127.0.0.1:8000/).
+      - убедиться в отображении локаций на главной странице [сайта](http://59840.web.hosting-russia.ru/).
     * используя manage-команду `load_place`:
       - получить справку по работе с manage-командой:
       ```sh
-      docker-compose exec web python manage.py load_data --help
+      docker-compose exec web python manage.py load_place --help
       ```
       - получить ссылку на данными о локации [описанным способом](https://github.com/devmanorg/where-to-go-places#как-скачать),
       - заполнить БД информацией о месте:
@@ -277,7 +250,7 @@ docker-compose exec web python manage.py createsuperuser
       docker-compose exec web python manage.py load_place <ссылка на данными о локации>
       ```
       - совершить целевое действие,
-      - убедиться в отображении локаций на главной странице [сайта](http://127.0.0.1:8000/).
+      - убедиться в отображении локаций на главной странице [сайта](http://59840.web.hosting-russia.ru/).
 
 12. Завершить работу сайта:
 ```sh
@@ -294,12 +267,12 @@ docker-compose down
 
 ```sh
 $ docker-compose exec web python manage.py load_place --help
-usage: manage.py load_place [-h] [--version] ... data_file_url
+usage: manage.py load_place [-h] [--version] ... raw_file_url
 
 Создаёт записи об интересных местах и их фотографиях в БД.
 
 positional arguments:
-  data_file_url         URL-адрес json-файла с данными
+  raw_file_url         URL-адрес json-файла с данными
 
 optional arguments:
   -h, --help            show this help message and exit
