@@ -1,6 +1,8 @@
 from pathlib import PurePath
 from urllib.parse import urlparse
 
+import requests
+
 from django.core.files.base import ContentFile
 from django.core.management.base import BaseCommand
 
@@ -8,8 +10,6 @@ from places.models import (
     Image,
     Place,
 )
-
-import requests
 
 
 class Command(BaseCommand):
@@ -42,7 +42,7 @@ class Command(BaseCommand):
                           .get_or_create(title_long=place_and_image_raw_data['title'],
                                          defaults=defaults))
         if created:  # Запрет на добавление новых фото из json-файла
-            for _, image_url in enumerate(place_and_image_raw_data['imgs']):
+            for image_url in place_and_image_raw_data['imgs']:
 
                 image = Image.objects.create(place=place)
 
