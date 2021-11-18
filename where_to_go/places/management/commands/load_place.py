@@ -38,24 +38,24 @@ class Command(BaseCommand):
             "longitude": place_and_image_raw_data['coordinates']['lng'],
         }
 
-        place, created = (Place.objects
-                          .get_or_create(title_long=place_and_image_raw_data['title'],
-                                         defaults=defaults))
-        if created:  # Запрет на добавление новых фото из json-файла
-            for image_url in place_and_image_raw_data['imgs']:
+        place, _ = (Place.objects
+                    .get_or_create(title_long=place_and_image_raw_data['title'],
+                                   defaults=defaults))
 
-                image = Image.objects.create(place=place)
+        for image_url in place_and_image_raw_data['imgs']:
 
-                response = requests.get(image_url)
-                response.raise_for_status()
+            image = Image.objects.create(place=place)
 
-                image_content = ContentFile(response.content)
-                disassembled_url = urlparse(image_url)
-                image_name = PurePath(disassembled_url.path).name
-                image.name.save(image_name, image_content, save=True)
+            response = requests.get(image_url)
+            response.raise_for_status()
 
-            success_added_place_and_image_msg = (
-                'Интересное место и фото добавлены в БД '
-                f'из источника: {raw_file_url}'
-            )
-            self.stdout.write(self.style.SUCCESS(success_added_place_and_image_msg))
+            image_content = ContentFile(response.content)
+            disassembled_url = urlparse(image_url)
+            image_name = PurePath(disassembled_url.path).name
+            image.name.save(image_name, image_content, save=True)
+
+        success_added_place_and_image_msg = (
+            'Интересное место и фото добавлены в БД '
+            f'из источника: {raw_file_url}'
+        )
+        self.stdout.write(self.style.SUCCESS(success_added_place_and_image_msg))
