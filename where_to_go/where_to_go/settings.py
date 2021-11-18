@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
-import os
 from pathlib import Path
 
 from environs import Env
@@ -19,11 +18,7 @@ from environs import Env
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 env = Env()
-workenv_env_var_value = os.getenv('DJANGO_ENV')
-if workenv_env_var_value == 'development':
-    env.read_env('.env.dev')
-elif workenv_env_var_value == 'production':
-    env.read_env('.env.prod')
+env.read_env()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
