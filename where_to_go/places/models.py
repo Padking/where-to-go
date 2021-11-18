@@ -12,9 +12,9 @@ class Place(models.Model):
     longitude = models.FloatField('долгота')
     latitude = models.FloatField('широта')
 
-    place_identifier = models.CharField('идентификатор',
-                                        blank=True,
-                                        max_length=200)
+    alias = models.CharField('сокращение названия',
+                             blank=True,
+                             max_length=200)
     title_short = models.CharField('краткое название',
                                    blank=True,
                                    max_length=200)

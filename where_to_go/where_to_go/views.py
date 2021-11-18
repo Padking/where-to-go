@@ -19,7 +19,7 @@ def show_map(request):
         point = (place.longitude, place.latitude)
         properties = {
             'title': place.title_long,
-            'placeId': place.place_identifier,
+            'placeId': place.alias,
             'detailsUrl': reverse('places:place',
                                   kwargs={'place_id': place.id}),
         }
