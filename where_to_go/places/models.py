@@ -31,7 +31,7 @@ class Image(models.Model):
     name = models.ImageField('имя фото места')
     place = models.ForeignKey(Place, on_delete=models.CASCADE,
                               blank=True,
-                              related_name='images_per_place')
+                              related_name='associated_images')
     position = models.PositiveIntegerField('позиция',
                                            default=0)
 
