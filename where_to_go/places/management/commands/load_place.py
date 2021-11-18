@@ -19,16 +19,16 @@ class Command(BaseCommand):
     )
 
     def add_arguments(self, parser):
-        help_to_data_file_url_arg = (
+        help_to_raw_file_url_arg = (
             'URL-адрес json-файла с данными'
         )
-        parser.add_argument('data_file_url',
-                            help=help_to_data_file_url_arg)
+        parser.add_argument('raw_file_url',
+                            help=help_to_raw_file_url_arg)
 
     def handle(self, *args, **kwargs):
-        data_file_url = kwargs['data_file_url']
+        raw_file_url = kwargs['raw_file_url']
 
-        response = requests.get(data_file_url)
+        response = requests.get(raw_file_url)
         response.raise_for_status()
         place_and_image_raw_data = response.json()
         defaults = {
@@ -56,6 +56,6 @@ class Command(BaseCommand):
 
             success_added_place_and_image_msg = (
                 'Интересное место и фото добавлены в БД '
-                f'из источника: {data_file_url}'
+                f'из источника: {raw_file_url}'
             )
             self.stdout.write(self.style.SUCCESS(success_added_place_and_image_msg))
