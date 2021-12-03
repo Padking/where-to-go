@@ -15,9 +15,6 @@ class Place(models.Model):
     alias = models.CharField('сокращение названия',
                              blank=True,
                              max_length=200)
-    title_short = models.CharField('краткое название',
-                                   blank=True,
-                                   max_length=200)
     description_short = models.TextField('краткое описание',
                                          blank=True)
     description_long = HTMLField('подробное описание',
