@@ -25,7 +25,7 @@ class Place(models.Model):
 
 
 class Image(models.Model):
-    name = models.ImageField('имя фото места')
+    img = models.ImageField('фото места')
     place = models.ForeignKey(Place, on_delete=models.CASCADE,
                               blank=True,
                               related_name='associated_images')
@@ -37,9 +37,9 @@ class Image(models.Model):
         html_code = (
             '<img src="{url}" style="max-height:{max_height}px">'
         )
-        if self.name:
+        if self.img:
             return format_html(mark_safe(html_code),
-                               url=self.name.url,
+                               url=self.img.url,
                                max_height=200)
 
     class Meta:

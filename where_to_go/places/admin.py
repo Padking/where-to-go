@@ -11,7 +11,7 @@ from .models import (
 class ImageInline(SortableInlineAdminMixin, admin.TabularInline):
     model = Image
     extra = 2
-    fields = ['name', 'get_preview', 'position']
+    fields = ['img', 'get_preview', 'position']
     readonly_fields = ['get_preview', ]
 
     def get_preview(self, obj):

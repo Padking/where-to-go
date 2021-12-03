@@ -11,7 +11,7 @@ def map_points(request, place_id):
     place = get_object_or_404(Place, pk=place_id)
     raw_response = {
         'title': place.title_long,
-        'imgs': [image.name.url for image in place.associated_images.all()],
+        'imgs': [image.img.url for image in place.associated_images.all()],
         'description_short': place.description_short,
         'description_long': place.description_long,
         'coordinates': {
